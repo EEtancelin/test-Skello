@@ -1,0 +1,11 @@
+<div class="card-rating">
+  <div class="rate">
+    <%(5-@post[:rating].to_i).times do %>
+      <div class="glyphicon glyphicon-star-empty pl-s " aria-hidden="true"></div>
+    <% end %>
+
+      <%@post[:rating].to_i.times do %>
+        <div class="glyphicon glyphicon-star pl-s " aria-hidden="true"></div>
+      <% end %>
+  </div>
+</div>

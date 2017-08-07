@@ -1,0 +1,177 @@
+
+BACKEND - Programming
+These can be done in any language you're comfortable with
+
+1. Give a regular expression that detects hexadecimal numbers in a text.
+For example, ‘0x0f4’, ‘0acdadecf822eeff32aca5830e438cb54aa722e3’, ‘8BADF00D’ should be detected.
+
+/(#|&H|0x){0,1}([a-fA-F0-9]+/
+
+(#|&H|0x){0,1} Vérifie la présence de # ou &H ou 0x en début d'expression.
+//NB: Ou l'absence avec le zéro.
+
+([a-fA-F0-9]+
+Test la présence d'un caractére hexadécimal et match de 1 à plus l'infinie.
+
+source : http://regexr.com/
+
+>
+
+
+2.Here is the pseudo code of a function that is defined recursively:
+-  f(0) = 1;
+-  f(1) = 3;
+-  f(n)= 3 * f(n-1) - f(n-2);
+Provide an implementation for ‘f’. Bonus points for a non recursive implementation.
+
+
+#Solution 1 Recursive implementation
+>def function(number)
+  number = Integer(number) rescue false //Cast the number to an integer if
+  //possible.
+
+  if !number.is_a?(Integer) || number < 0
+    result = nil
+  elsif number == 0
+    result = 0
+  elsif number == 1
+    result = 3
+
+  else
+    result = 3 * function( number - 1) - function( number - 2)
+  end
+
+  return result
+end
+#######################################################################
+// Solution 2
+Save the result in array for quicker access if function is call on the same number.
+
+@@function_result=[]
+
+def function(number)
+  number = Integer(number) rescue false //Cast the number to an integer if
+  //possible.
+
+  if !number.is_a?(Integer) || number < 0
+    result = nil
+  else
+    result =   @@function_result[number] || calculate(@@function_result, number)
+  end
+end
+
+def calculate[results,number]
+  //Calculate the function and store the result
+  // if the called number is under 1 function will be called with a negative number
+  //and an error will be raise.
+
+  @@function_result[number] = 3 * function( number - 1) - function( number - 2)
+  return @@function_result[number]
+end
+
+// Solution 3 You do MATH !!!.
+// https://en.wikipedia.org/wiki/Recurrence_relation#Relationship_to_difference_equations_narrowly_defined
+//GOTO -> Solving homogeneous linear recurrence relations with constant coefficients
+:-)
+
+function(number)
+  // Assumming n is a positive integer
+
+  return (
+    (1/10)*(
+      (5-3*sqrt(5)) * ((1/2)*(3-sqrt(5))**number)
+      +
+      (5+3*sqrt(5)) *((1/2)* (3+sqrt(5))**number)
+    )
+)
+end
+
+>
+
+BACKEND - MySQL
+
+1. Write a CREATE TABLE query for a table storing information on users. It will store:
+  - id,
+  - firstname,
+  - lastname,
+  - gender,
+  - email,
+  - created_at
+
+>
+
+CREATE TABLE users
+(
+  id INT PRIMARY KEY NOT NULL,
+  firstname VARCHAR(100),
+  lastname VARCHAR(255),
+  gender VARCHAR(5),
+  email VARCHAR(255),
+  created_at DATE
+)
+
+>
+
+2. Write a query on the previous table that lists the 10 most recently added users.
+Source : http://sql.sh/cours/order-by
+
+> SELECT *
+FROM users
+ORDER BY created_at DESC
+LIMIT 10
+
+>
+
+GENERAL - Creativity
+Si vous êtes Français, vous pouvez répondre en Français.
+
+1. Describe the color yellow to someone who is blind
+
+"Yellow, is warm sun that make you fell happy and shiny, it's a nice color "
+>
+
+3. Describe the data model you’d use for a Battleship game. What are the key objects? How will your code use them?
+
+3 Tables
+
+Users
+{
+  id : integer
+  name: string
+}
+
+Games
+
+{
+  id:integer
+  black_player: references(user)
+  white_player: references(User)
+  white_shot: array (String)
+  black_shot: array (string)
+}
+(Shoot are references with the classical A5, B2, ... position)
+
+Ship
+{
+  game: references(games)
+  name : string (aircraft carrier, ...)
+  position: string
+  length: integer
+  player : references(user) (Define to whow the boat belongs to)
+  vertical : (boolean) ( Define if the ship is align vertically or horizontally)
+}
+
+How the code run ?
+
+To get all the boats belongs_to a game we use
+  @game is a game instance
+  @game.ships
+
+To get all the boats belongs_to a game and a to the white player we use
+  @game is a game instance
+  @game.ships.where(player: @white_player )
+>
+
+In the ship model we define methods that according to an array of shoot define if the ship is sinked or not.
+
+NB: We could have also define a shoot model. 

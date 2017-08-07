@@ -1,0 +1,31 @@
+<div class="card">
+  <h4 class="card-title"><%= @post[:title]%></h4>
+  <!-- //Escape hack in order to bypass browser cache and get new image.   -->
+  <% @prop=[1.1,1.2,1.3,1.4,1.5,1.6].sample %>
+  <% @src="http://lorempixel.com/#{(400*@prop).to_i}/#{(200*@prop).to_i}/people/" %>
+  <img class="card-img-top photo" src="<%= @post[:photo]%>" alt="<%=@src%>">
+  <div class="card-block">
+    <div class="card-content card-header">
+      <p class="card-text"> <%= @post[:content]%> </p>
+    </div>
+    <div class="space-btw f-width px-m">
+      <thumbs v-bind:class="{ liked:  {likedd} }"></thumbs>
+      <div class="">
+        <%= erb :cardRating%>
+      </div>
+    </div>
+
+    <!-- //Comments -->
+    <ul class="list-group list-group-flush comments">
+      <%COMMENTS[1].each do |comment|%>
+        <%@comment = comment%>
+        <%= erb :comment%>
+      <%end %>
+    </ul>
+
+    <!-- //Card footer -->
+    <div class="card-footer">
+      <a href="https://www.skello.io" class="btn btn-primary m-s">Go !</a>
+    </div>
+  </div>
+</div>

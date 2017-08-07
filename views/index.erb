@@ -1,0 +1,37 @@
+<!-- Do your magic ! -->
+
+<div class="home-navbar" >
+  <a class="navbar-wagon-brand" id="home-navbar-logo" href="/">
+    <img style="width: 125px;" src="https:www.skello.io/assets/home-logo-13a80da480301915ca5db0518529cbb72f035db03c15c1f3773c2ba5d4f9c25f.png" alt="Home logo" >
+  </a>
+  <div class="login" style="background-color:red;">
+    gsdfg
+  </div>
+</div>
+
+<!-- Home Banner ! -->
+
+<div class="banner" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('http://c2.staticflickr.com/8/7381/16586985161_7450d151ff_z.jpg');">
+  <div class="banner-content vertical-center " >
+    <h1>Post & Share </h1>
+    <p>Post content and get reaction from your dear</p>
+  </div>
+
+</div>
+
+<div class="container">
+  <div class="row">
+    <%DB.each do |post|%>
+      <% @post= post %>
+      <div class="col-md-4 col-xs-12 text-center">
+        <%= erb :card%>
+      </div>
+    <%end%>
+  </div>
+</div>
+
+<%= erb :footer%>
+<script>
+  // No Raw javascript. Things should be clean
+  // Take a look at the App.ERb file to see how the page javascipt as been loaded after all the other script.
+</script>
