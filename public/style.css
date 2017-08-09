@@ -16,7 +16,11 @@
   margin: 5px;
 }
 
-/*Sizing Helper*/
+/*************************************Sizing Helper***************************/
+/*font-size-large*/
+.fs-l {
+  font-size: 18px;
+}
 /*full-width*/
 .f-width{
   width: 100%;
