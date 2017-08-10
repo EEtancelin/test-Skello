@@ -35,7 +35,9 @@ Vue.component('commentslist', {
     addComment: function(comment) {
       console.log(this.comments);
       this.comments.push(comment);
-      this.$forceUpdate()
+      $('.aa').value = '' ;
+      this.$forceUpdate();
+      document.getElementsByClassName('aa').value = '';
       console.log(this.comments);
     }
   }
@@ -43,11 +45,14 @@ Vue.component('commentslist', {
 
 Vue.component('addComment', {
   props: ['addComment'],
-  template: '<form class=" mx-s space-btw"><input id="add-comment" ref="my_input" class="form-control"></input><button @click.prevent="getFormValues()" class="btn ml-s" >add comment</button></form>',
+  template: '<form class=" mx-s space-btw"><input ref="my_input" class="aa form-control"></input><button @click.prevent="submitComment()" class="btn ml-s" >add comment</button></form>',
   methods:{
-    getFormValues () {
-      this.addComment(this.$refs.my_input.value)
-      document.getElementById('add-comment').value = '';
+    submitComment () {
+      this.addComment(this.$refs.my_input.value);
+      var inputs = $('.aa')
+      inputs.each( function(form) {
+        inputs[form].value = "";
+      }) ;
     }
   }
 })
