@@ -5,7 +5,7 @@ Vue.component('thumbs', {
   // complain, but we return the same object
   // reference for each component instance
   data: function () {
-    return { isLiked: true }
+    return { isLiked: false }
   },
   methods: {
     toogleLike: function(){
@@ -15,6 +15,42 @@ Vue.component('thumbs', {
   }
 })
 
+Vue.component('comment', {
+  template: '<div class=""><li class="comments list-group-item text-left pd-s"><img :src="this.imgSrc()" alt="user" class="avatar"><span class="ml-m">{{ comment }}</span></li></div>',
+  props: ['comment'],
+  methods:{
+    imgSrc: function(){
+      // Escape hack to by-passs browser cache.
+      var array = [1.1,1.2,1.3,1.4,1.5,1.6]
+      var proportion = array[parseInt(array.length * Math.random())] ;
+      return("http://lorempixel.com/" + parseInt(400 * proportion) + "/" + parseInt(200 * proportion) + "/people/")
+    }
+  }
+})
+
+Vue.component('commentslist', {
+  template: '<div><ul class="list-group list-group-flush comments"> <div v-for="comment in this.comments" :key="comment"> <comment :comment="comment"></comment></div></ul><addComment v-bind:addComment="addComment" ></addComment ></div>',
+  props: ['comments'],
+  methods: {
+    addComment: function(comment) {
+      console.log(this.comments);
+      this.comments.push(comment);
+      this.$forceUpdate()
+      console.log(this.comments);
+    }
+  }
+})
+
+Vue.component('addComment', {
+  props: ['addComment'],
+  template: '<form class=" mx-s space-btw"><input ref="my_input" class="form-control"></input><button @click.prevent="getFormValues()" class="btn ml-s" >add comment</button></form>',
+  methods:{
+    getFormValues () {
+      this.newComment = this.$refs.my_input.value
+      this.addComment(this.newComment)
+    }
+  }
+})
 
 var app = new Vue({
   el: '.container',
