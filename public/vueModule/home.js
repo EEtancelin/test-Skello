@@ -33,12 +33,8 @@ Vue.component('commentslist', {
   props: ['comments'],
   methods: {
     addComment: function(comment) {
-      console.log(this.comments);
       this.comments.push(comment);
-      $('.aa').value = '' ;
       this.$forceUpdate();
-      document.getElementsByClassName('aa').value = '';
-      console.log(this.comments);
     }
   }
 })
