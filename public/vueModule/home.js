@@ -43,11 +43,11 @@ Vue.component('commentslist', {
 
 Vue.component('addComment', {
   props: ['addComment'],
-  template: '<form class=" mx-s space-btw"><input ref="my_input" class="form-control"></input><button @click.prevent="getFormValues()" class="btn ml-s" >add comment</button></form>',
+  template: '<form class=" mx-s space-btw"><input id="add-comment" ref="my_input" class="form-control"></input><button @click.prevent="getFormValues()" class="btn ml-s" >add comment</button></form>',
   methods:{
     getFormValues () {
-      this.newComment = this.$refs.my_input.value
-      this.addComment(this.newComment)
+      this.addComment(this.$refs.my_input.value)
+      document.getElementById('add-comment').value = '';
     }
   }
 })
